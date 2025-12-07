@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-ci-deploy
+  labels:
+    app: ai-ci-log
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-ci-log
+  template:
+    metadata:
+      labels:
+        app: ai-ci-log
+    spec:
+      containers:
+      - name: ai-ci-log
+        image: ai-ci-log:latest
+        ports:
+        - containerPort: 5000

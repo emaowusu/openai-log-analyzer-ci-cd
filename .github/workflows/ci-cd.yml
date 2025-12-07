@@ -37,6 +37,7 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
+        pip install openai
         python ci/analyze_logs.py
         cat pipeline.log | python ci/analyze_logs.py > analysis_report.txt
     - name: Upload Analysis Report

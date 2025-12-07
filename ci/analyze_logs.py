@@ -1,10 +1,8 @@
-import openai
 import os
+from openai import OpenAI
 
-# Use environment variable for security
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Sample log file generated from CI/CD
 log_file = "pipeline.log"
 
 if not os.path.exists(log_file):
@@ -14,8 +12,8 @@ if not os.path.exists(log_file):
 with open(log_file, "r") as f:
     logs = f.read()
 
-response = openai.ChatCompletion.create(
-    model="gpt-4",
+response = client.chat.completions.create(
+    model="gpt-4o-mini",   
     messages=[
         {"role": "system", "content": "You are a DevOps assistant."},
         {"role": "user", "content": f"Analyze these CI/CD logs and suggest fixes:\n{logs}"}
@@ -24,4 +22,3 @@ response = openai.ChatCompletion.create(
 
 print("===== AI Log Summary & Suggestions =====")
 print(response.choices[0].message.content)
-

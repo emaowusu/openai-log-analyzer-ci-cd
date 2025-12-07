@@ -36,6 +36,7 @@ jobs:
     - name: AI Log Analysis
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      continue-on-error: true
       run: |
         pip install openai
         python ci/analyze_logs.py
